@@ -33,7 +33,12 @@
             "SAI\\Php2Rpm\\Tests": "tests/"
         }
     },
-    "bin": ["bin/php2rpm"],
+    "bin": [
+        "bin/composer2rpm",
+        "bin/drupal2rpm",
+        "bin/pear2rpm",
+        "bin/php2rpm"
+    ],
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
