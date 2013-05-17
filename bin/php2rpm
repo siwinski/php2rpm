@@ -12,8 +12,8 @@
 
 require __DIR__ . '/../src/bootstrap.php';
 
-use SAI\Php2Rpm\Console\Application;
+use SAI\Php2Rpm\Console\Application\PhpApplication;
 
 // Run the application
-$application = new Application();
+$application = new PhpApplication();
 $application->run();
