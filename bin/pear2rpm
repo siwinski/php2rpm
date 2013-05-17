@@ -1,2 +1,19 @@
-#/bin/bash
-$(dirname "$(readlink -f "$0")")/php2rpm --type=pear $@
+#!/usr/bin/env php
+<?php
+
+/**
+ * This file is part of the php2rpm package.
+ *
+ * (c) Shawn Iwinski <shawn.iwinski@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+require __DIR__ . '/../src/bootstrap.php';
+
+use SAI\Php2Rpm\Console\Application\PearApplication;
+
+// Run the application
+$application = new PearApplication();
+$application->run();
