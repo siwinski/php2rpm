@@ -29,7 +29,7 @@ abstract class AbstractApplication extends Application
      */
     public function getHelp()
     {
-      return static::$logo . parent::getHelp();
+      return '<info>' . static::$logo . '</info>' . parent::getHelp();
     }
 
     /**
