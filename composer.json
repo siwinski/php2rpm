@@ -9,6 +9,11 @@
             "email": "shawn.iwinski@gmail.com"
         }
     ],
+    "provide": {
+        "sai/composer2rpm": "self.version",
+        "sai/drupal2rpm": "self.version",
+        "sai/pear2rpm": "self.version"
+    },
     "repositories": [
         {
             "type": "pear",
