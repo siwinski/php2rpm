@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace SAI\Php2Rpm\Tests\Console;
+namespace SAI\Php2Rpm\Tests\Console\Application;
 
-use SAI\Php2Rpm\Console\Application;
+use SAI\Php2Rpm\Console\Application\ComposerApplication;
 
 /**
  * @author Shawn Iwinski <shawn.iwinski@gmail.com>
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ComposerApplicationTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
