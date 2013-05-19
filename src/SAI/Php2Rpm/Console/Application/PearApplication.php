@@ -13,6 +13,7 @@ namespace SAI\Php2Rpm\Console\Application;
 
 use SAI\Php2Rpm;
 use SAI\Php2Rpm\Console\Application\AbstractApplication;
+use SAI\Php2Rpm\Type\PearType;
 
 /**
  * @author Shawn Iwinski <shawn.iwinski@gmail.com>
@@ -34,11 +35,28 @@ class PearApplication extends AbstractApplication
 ";
 
     /**
+     * @var SAI\Php2Rpm\Type\PearType
+     */
+    protected static $type = null;
+
+    /**
      *
      */
     public function __construct()
     {
         parent::__construct('pear2rpm', Php2Rpm::VERSION);
+    }
+
+    /**
+     * @return SAI\Php2Rpm\Type\PearType
+     */
+    public function getType()
+    {
+        if (!isset(static::$type)) {
+            static::$type = new PearType();
+        }
+
+        return static::$type;
     }
 
 }

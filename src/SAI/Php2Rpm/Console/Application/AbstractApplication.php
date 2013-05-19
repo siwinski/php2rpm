@@ -21,6 +21,7 @@ abstract class AbstractApplication extends Application
 {
     /**
      * ASCII art logo
+     * @var string
      */
     protected static $logo = '';
 
@@ -45,5 +46,10 @@ abstract class AbstractApplication extends Application
 
         return $commands;
     }
+
+    /**
+     * @return SAI\Php2Rpm\Type\AbstractType
+     */
+    abstract public function getType();
 
 }

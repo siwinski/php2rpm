@@ -13,6 +13,7 @@ namespace SAI\Php2Rpm\Console\Application;
 
 use SAI\Php2Rpm;
 use SAI\Php2Rpm\Console\Application\AbstractApplication;
+use SAI\Php2Rpm\Type\DrupalType;
 
 /**
  * @author Shawn Iwinski <shawn.iwinski@gmail.com>
@@ -34,11 +35,28 @@ class DrupalApplication extends AbstractApplication
 ";
 
     /**
+     * @var SAI\Php2Rpm\Type\DrupalType
+     */
+    protected static $type = null;
+
+    /**
      *
      */
     public function __construct()
     {
         parent::__construct('drupal2rpm', Php2Rpm::VERSION);
+    }
+
+    /**
+     * @return SAI\Php2Rpm\Type\DrupalType
+     */
+    public function getType()
+    {
+        if (!isset(static::$type)) {
+            static::$type = new DrupalType();
+        }
+
+        return static::$type;
     }
 
 }

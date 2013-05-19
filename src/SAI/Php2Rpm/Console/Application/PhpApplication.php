@@ -13,6 +13,7 @@ namespace SAI\Php2Rpm\Console\Application;
 
 use SAI\Php2Rpm;
 use SAI\Php2Rpm\Console\Application\AbstractApplication;
+use SAI\Php2Rpm\Type\PhpType;
 
 /**
  * @author Shawn Iwinski <shawn.iwinski@gmail.com>
@@ -34,11 +35,28 @@ class PhpApplication extends AbstractApplication
 ";
 
     /**
+     * @var SAI\Php2Rpm\Type\PhpType
+     */
+    protected static $type = null;
+
+    /**
      *
      */
     public function __construct()
     {
         parent::__construct('php2rpm', Php2Rpm::VERSION);
+    }
+
+    /**
+     * @return SAI\Php2Rpm\Type\PhpType
+     */
+    public function getType()
+    {
+        if (!isset(static::$type)) {
+            static::$type = new PhpType();
+        }
+
+        return static::$type;
     }
 
 }
