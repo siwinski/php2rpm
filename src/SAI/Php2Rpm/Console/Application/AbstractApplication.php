@@ -41,8 +41,9 @@ abstract class AbstractApplication extends Application
         // Keep the core default commands
         $commands = parent::getDefaultCommands();
 
-        // Add commands
-        $commands[] = new CreateCommand();
+        // Add the create command
+        $create = new CreateCommand();
+        $commands[] = $create->setType($this->getType());
 
         return $commands;
     }
