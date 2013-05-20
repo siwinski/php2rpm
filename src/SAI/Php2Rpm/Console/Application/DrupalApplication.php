@@ -35,7 +35,7 @@ class DrupalApplication extends AbstractApplication
 ";
 
     /**
-     * @var SAI\Php2Rpm\Type\DrupalType
+     * @var DrupalType
      */
     protected static $type = null;
 
@@ -48,7 +48,7 @@ class DrupalApplication extends AbstractApplication
     }
 
     /**
-     * @return SAI\Php2Rpm\Type\DrupalType
+     * @return DrupalType
      */
     public function getType()
     {

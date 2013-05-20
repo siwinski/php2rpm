@@ -35,7 +35,7 @@ class PearApplication extends AbstractApplication
 ";
 
     /**
-     * @var SAI\Php2Rpm\Type\PearType
+     * @var PearType
      */
     protected static $type = null;
 
@@ -48,7 +48,7 @@ class PearApplication extends AbstractApplication
     }
 
     /**
-     * @return SAI\Php2Rpm\Type\PearType
+     * @return PearType
      */
     public function getType()
     {

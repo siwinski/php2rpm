@@ -35,7 +35,7 @@ class ComposerApplication extends AbstractApplication
 ";
 
     /**
-     * @var SAI\Php2Rpm\Type\ComposerType
+     * @var ComposerType
      */
     protected static $type = null;
 
@@ -48,7 +48,7 @@ class ComposerApplication extends AbstractApplication
     }
 
     /**
-     * @return SAI\Php2Rpm\Type\ComposerType
+     * @return ComposerType
      */
     public function getType()
     {

@@ -35,7 +35,7 @@ class PhpApplication extends AbstractApplication
 ";
 
     /**
-     * @var SAI\Php2Rpm\Type\PhpType
+     * @var PhpType
      */
     protected static $type = null;
 
@@ -48,7 +48,7 @@ class PhpApplication extends AbstractApplication
     }
 
     /**
-     * @return SAI\Php2Rpm\Type\PhpType
+     * @return PhpType
      */
     public function getType()
     {
