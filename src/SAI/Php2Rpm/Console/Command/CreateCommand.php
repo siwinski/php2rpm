@@ -32,6 +32,23 @@ class CreateCommand extends Command
     /**
      *
      */
+    public function __construct(AbstractType $type)
+    {
+        parent::__construct();
+        $this->type = $type->setCommand($this);
+    }
+
+    /**
+     * @return AbstractType
+     */
+    public function getType(AbstractType $type)
+    {
+        return $this->type;
+    }
+
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -40,37 +57,16 @@ class CreateCommand extends Command
             ->addArgument(
                 'project',
                 InputArgument::IS_ARRAY | InputArgument::REQUIRED,
-                'Project(s)'
+                'Project'
             )
             ->addOption(
                 'format',
                 'f',
                 InputOption::VALUE_REQUIRED,
-                'Format of spec file to create (fedora)',
+                'Format of spec file to create',
                 'fedora'
             )
         ;
-    }
-
-    /**
-     * Sets the type instance for this command.
-     *
-     * @param AbstractType $type
-     *
-     * @return CreateCommand The current instance
-     */
-    public function setType(AbstractType $type) {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * Gets the type instance of this command.
-     *
-     * @return AbstractType The type instance of this command
-     */
-    public function getType() {
-        return $this->type;
     }
 
     /**
@@ -84,12 +80,24 @@ class CreateCommand extends Command
 
         $projects = $input->getArgument('project');
 
-        $output->writeln(sprintf('<info>Projects (%d):</info>', count($projects)));
-        foreach ($projects as $p) {
-            $output->writeln('    ' . $p);
-        }
+        $output->writeln(sprintf('<info>Project count</info> = <comment>%d</comment>', count($projects)));
+        $output->writeln(sprintf('<info>Type class</info> = <comment>%s</comment>', get_class($this->type)));
 
-        $output->writeln(sprintf('<info>Type class: %s', get_class($this->type)));
+        foreach ($projects as $project) {
+            $output->writeln("\n<info>$project:</info>");
+
+            if (!$this->type->isValid($project)) {
+                $output->writeln("\t<error>Invalid project</error>");
+                continue;
+            }
+
+            $output->writeln(sprintf("    <info>Normalized:</info> <comment>%s</comment>", $this->type->normalizeProject($project)));
+            $output->writeln(sprintf("        <info>Valid?:</info> %s",                    $this->type->isValid($project) ? '<comment>true</comment>' : '<error>false</error>'));
+            $output->writeln(sprintf("          <info>Name:</info> <comment>%s</comment>", $this->type->getName($project)));
+            $output->writeln(sprintf("           <info>URL:</info> <comment>%s</comment>", $this->type->getUrl($project)));
+            $output->writeln(sprintf("       <info>Version:</info> <comment>%s</comment>", $this->type->getVersion($project, $output)));
+            $output->writeln(sprintf("  <info>Download URL:</info> <comment>%s</comment>", $this->type->getDownloadUrl($project)));
+        }
 
         throw new \RuntimeException('Not implemented');
     }
