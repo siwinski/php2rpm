@@ -13,6 +13,7 @@ namespace SAI\Php2Rpm\Console\Application;
 
 use Symfony\Component\Console\Application;
 use SAI\Php2Rpm\Console\Command\CreateCommand;
+use SAI\Php2Rpm\Type\AbstractType;
 
 /**
  * @author Shawn Iwinski <shawn.iwinski@gmail.com>
@@ -34,7 +35,7 @@ abstract class AbstractApplication extends Application
     }
 
     /**
-     * Initializes all commands
+     * Initializes default commands
      */
     protected function getDefaultCommands()
     {
@@ -42,14 +43,13 @@ abstract class AbstractApplication extends Application
         $commands = parent::getDefaultCommands();
 
         // Add the create command
-        $create = new CreateCommand();
-        $commands[] = $create->setType($this->getType());
+        $commands[] = new CreateCommand($this->getType());
 
         return $commands;
     }
 
     /**
-     * @return SAI\Php2Rpm\Type\AbstractType
+     * @return AbstractType
      */
     abstract public function getType();
 
