@@ -15,6 +15,9 @@ use SAI\Php2Rpm;
 use SAI\Php2Rpm\Console\Application\AbstractApplication;
 use SAI\Php2Rpm\Type\DrupalType;
 
+use SAI\DrupalReleases\Console\Command\ProjectCommand;
+use SAI\DrupalReleases\Console\Command\SearchCommand;
+
 /**
  * @author Shawn Iwinski <shawn.iwinski@gmail.com>
  */
@@ -57,6 +60,20 @@ class DrupalApplication extends AbstractApplication
         }
 
         return static::$type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getDefaultCommands()
+    {
+        $commands = parent::getDefaultCommands();
+
+        // Add the project and search commands from sai/drupal-releases
+        $commands[] = new ProjectCommand();
+        $commands[] = new SearchCommand();
+
+        return $commands;
     }
 
 }
