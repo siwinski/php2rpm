@@ -86,12 +86,13 @@ class CreateCommand extends Command
         foreach ($projects as $project) {
             $output->writeln("\n<info>$project:</info>");
 
+            $this->type->setProject($project);
+
             if (!$this->type->isValid($project)) {
                 $output->writeln("\t<error>Invalid project</error>");
                 continue;
             }
 
-            $output->writeln(sprintf("    <info>Normalized:</info> <comment>%s</comment>", $this->type->normalizeProject($project)));
             $output->writeln(sprintf("        <info>Valid?:</info> %s",                    $this->type->isValid($project) ? '<comment>true</comment>' : '<error>false</error>'));
             $output->writeln(sprintf("          <info>Name:</info> <comment>%s</comment>", $this->type->getName($project)));
             $output->writeln(sprintf("           <info>URL:</info> <comment>%s</comment>", $this->type->getUrl($project)));
