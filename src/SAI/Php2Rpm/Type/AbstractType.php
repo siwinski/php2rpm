@@ -12,17 +12,61 @@
 namespace SAI\Php2Rpm\Type;
 
 use Symfony\Component\Console\Command\Command;
-use Guzzle\Http\Client;
 
 /**
  * @author Shawn Iwinski <shawn.iwinski@gmail.com>
  */
 abstract class AbstractType
 {
+
+    /**
+     * @var string
+     */
+    protected $project;
+
+    /**
+     * @var bool
+     */
+    protected $valid;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $version;
+
+    /**
+     * @var string
+     */
+    protected $url;
+
+    /**
+     * @var string
+     */
+    protected $downloadUrl;
+
+    /**
+     * @var Command
+     */
+    protected $command;
+
     /**
      *
      */
-    protected $command;
+    public function __construct($project = '', Command $command = null)
+    {
+        if (!empty($project)) {
+            $this->setProject($project);
+        }
+
+        if (null !== $command) {
+            $this->setCommand($command);
+        }
+    }
 
     /**
      *
@@ -37,7 +81,12 @@ abstract class AbstractType
      */
     public function setCommand(Command $command)
     {
+        if (null === $command) {
+            throw new \RuntimeException('Command cannot be null');
+        }
+
         $this->command = $command;
+
         return $this;
     }
 
@@ -47,7 +96,7 @@ abstract class AbstractType
     public function getApplication()
     {
         if (!isset($this->command)) {
-            throw new \RuntimeException('Type\'s command not set');
+            throw new \RuntimeException('Command not set');
         }
 
         return $this->command->getApplication();
@@ -55,41 +104,71 @@ abstract class AbstractType
 
     /**
      *
-     * @param string $project
      */
-    public function normalizeProject($project)
+    public function getProject()
     {
-        return $project;
+        return $this->project;
     }
 
     /**
      *
-     * @param string $project
      */
-    abstract public function isValid($project);
+    public function setProject($project)
+    {
+        $project = trim($project);
+        if (empty($project)) {
+            throw new \RuntimeException('Project cannot be empty');
+        }
+
+        $this->project = $project;
+        $this->configure();
+
+        return $this;
+    }
 
     /**
      *
-     * @param string $project
      */
-    abstract public function getName($project);
+    public function isValid()
+    {
+        return (bool) $this->valid;
+    }
 
     /**
      *
-     * @param string $project
      */
-    abstract public function getVersion($project);
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      *
-     * @param string $project
      */
-    abstract public function getUrl($project);
+    public function getVersion()
+    {
+        return $this->version;
+    }
 
     /**
      *
-     * @param string $project
      */
-    abstract public function getDownloadUrl($project);
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     *
+     */
+    public function getDownloadUrl()
+    {
+        return $this->downloadUrl;
+    }
+
+    /**
+     *
+     */
+    abstract public function configure();
 
 }
