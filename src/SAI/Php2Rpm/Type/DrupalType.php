@@ -19,53 +19,62 @@ use SAI\Php2Rpm\Type\AbstractType;
 class DrupalType extends AbstractType
 {
 
-    protected static $regex = '/^(\w+)(-\d(.x)?)?(-[0-9.]+)?$/';
+    /**
+     * @var string
+     */
+    protected static $regex = '/^(\w+)(-(\d)(.x)?)?(-dev)?$/';
 
-    public function isValid($project)
+    /**
+     * @var int
+     */
+    protected $api;
+
+    /**
+     *
+     */
+    public function configure()
     {
-        if (!preg_match(static::$regex, $project)) {
-            return false;
+        $matches = array();
+        $this->valid = preg_match(static::$regex, $this->project, $matches);
+
+        if (!$this->valid) {
+            return;
         }
 
-        return true;
+        echo "------------------ $this->project\n";
+        print_r($matches);
+
+        $this->name = $matches[1];
+
+        $this->url = 'http://drupal.org/project/' . $this->name;
+
+        $this->downloadUrl = 'http://drupal.org/project/' . $this->name;
     }
 
-    public function getName($project)
-    {
-        return $this->normalizeProject($project);
-    }
-
-    public function getVersion($project)
-    {
-        $apiVersion      = preg_replace('/^\w+-?/', '', $project);
-        $apiVersionParts = empty($apiVersion) ? array() : explode('-', $apiVersion);
-
-        if (empty($apiVersionParts)) {
-            return '*** TODO ***';
-        }
-
-        if (count($apiVersionParts) > 1) {
-            $api     = str_replace('.x', '', $apiVersionParts[0]);
-            $version = $apiVersionParts[1];
-        } elseif (false !== strpos($apiVersionParts[0], '.x')) {
-            $api     = str_replace('.x', '', $apiVersionParts[0]);
-            $version = null;
-        } else {
-            $api     = null;
-            $version = $apiVersionParts[0];
-        }
-
-        return '*version*';
-    }
-
-    public function getUrl($project)
-    {
-        return 'http://drupal.org/project/' . $this->normalizeProject($project);
-    }
-
-    public function getDownloadUrl($project)
-    {
-        return 'http://drupal.org/project/' . $this->normalizeProject($project);
-    }
+    /**
+     *
+     */
+//    public function getVersion()
+//    {
+//        $apiVersion      = preg_replace('/^\w+-?/', '', $this->project);
+//        $apiVersionParts = empty($apiVersion) ? array() : explode('-', $apiVersion);
+//
+//        if (empty($apiVersionParts)) {
+//            return '*** TODO ***';
+//        }
+//
+//        if (count($apiVersionParts) > 1) {
+//            $api     = str_replace('.x', '', $apiVersionParts[0]);
+//            $version = $apiVersionParts[1];
+//        } elseif (false !== strpos($apiVersionParts[0], '.x')) {
+//            $api     = str_replace('.x', '', $apiVersionParts[0]);
+//            $version = null;
+//        } else {
+//            $api     = null;
+//            $version = $apiVersionParts[0];
+//        }
+//
+//        return '*version*';
+//    }
 
 }
