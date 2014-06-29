@@ -14,25 +14,16 @@
         "sai/drupal2rpm": "self.version",
         "sai/pear2rpm": "self.version"
     },
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "http://pear.php.net"
-        },
-        {
-            "type": "pear",
-            "url": "http://bartlett.laurent-laville.org"
-        }
-    ],
     "require": {
-        "php": ">=5.3.2",
-        "symfony/console": "~2.2",
-        "pear-bartlett/PHP_CompatInfo": "~2.15",
+        "php": ">=5.3.3",
+        "symfony/console": "~2.4",
+        "bartlett/php-compatinfo": "~3.1",
         "sai/drupal-releases": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "~3.7"
+        "phpunit/phpunit": "~4.1"
     },
+    "minimum-stability": "beta",
     "autoload": {
         "psr-0": {
             "SAI\\Php2Rpm": "src/",
